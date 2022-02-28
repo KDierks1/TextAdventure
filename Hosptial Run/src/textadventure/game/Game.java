@@ -121,7 +121,7 @@ package textadventure.game;
 	        else if (command.hasLine()) {
 	            thingToDrink = command.getSecondWord() + command.getLine();       
 	        }
-	        player.adjustHealth(thingToDrink.getHealth);
+	        //player.adjustHealth(thingToDrink.getHealth);
 	    }
 
 	    public void inspect(Command command) {
