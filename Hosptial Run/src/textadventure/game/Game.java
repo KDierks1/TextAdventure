@@ -169,7 +169,6 @@ public class Game {
         itemToEat = command.getSecondWord();
         Item itemGrab = currentRoom.removeItem(itemToEat);
         health--;
-        loseGame();
         System.out.println (health);
     }
 
@@ -200,7 +199,6 @@ public class Game {
             printString += "\nYou can't look at that";
         }
         System.out.println (printString);
-        loseGame();
         health--;
 
     }
@@ -227,7 +225,6 @@ public class Game {
         }
         else {
             player.setItem(item, itemGrab);
-            loseGame();
             health--;
         }
     }
@@ -253,7 +250,6 @@ public class Game {
         else {
             currentRoom.setItem(item, itemDrop);
         }
-        loseGame();
         health--;
     }
     
@@ -285,16 +281,24 @@ public class Game {
         }
         else {
             currentRoom = nextRoom;
-            loseGame();
             stamina --;
         }
         currentRoom = nextRoom;
     }
     
+    /* public void holdItems () {
+    	if (player.getInventoryString().equals("Player Inventory: key"))
+    		grab command = null;
+    }
+    */
+    
     public void loseGame () {
     	if (health == 0)
     		lose = 0;
+    	System.out.println ("Sorry you lost the game");
     	if (stamina == 0)
     		lose = 0;
+    	System.out.println ("Sorry you lost the game");
+
     }
 }
