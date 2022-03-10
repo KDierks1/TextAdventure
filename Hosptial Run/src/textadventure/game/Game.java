@@ -102,21 +102,27 @@ public class Game {
         switch (commandWord) {
             case "speak":
                 System.out.println ("You wanted to speak this word, " + command.getSecondWord());
+                loseGame();
                 break;
             case "go":
                 goRoom(command);
+                loseGame();
                 break;
             case "grab":
                 grab(command);
+                loseGame();
                 break;
             case "drop":
                 drop(command);
+                loseGame();
                 break;
             case "inspect":
                 inspect(command);
+                loseGame();
                 break;
             case "eat":
                 eat(command);
+                loseGame();
                 break;
                 /*
             case "help speak":
@@ -137,12 +143,17 @@ public class Game {
             case "help eat":
             	System.out.println ("Type in eat followed by the item you want to eat");
             	break;
-            	*/
             case "help":
                 System.out.println ("Commands: Speak, Go, Grab, Drop, Inspect and Eat");
                 System.out.println ("For extra help, type in help followed by the command you are struggling with");
                 break;
-           
+            case "eat medicine":
+            	health += 7;
+            	break;
+            case "eat food":
+            	stamina += 7;
+            	break;
+            	*/
         }
      }
 
@@ -158,6 +169,7 @@ public class Game {
         itemToEat = command.getSecondWord();
         Item itemGrab = currentRoom.removeItem(itemToEat);
         health--;
+        loseGame();
         System.out.println (health);
     }
 
@@ -188,6 +200,7 @@ public class Game {
             printString += "\nYou can't look at that";
         }
         System.out.println (printString);
+        loseGame();
         health--;
 
     }
@@ -214,6 +227,7 @@ public class Game {
         }
         else {
             player.setItem(item, itemGrab);
+            loseGame();
             health--;
         }
     }
@@ -239,6 +253,7 @@ public class Game {
         else {
             currentRoom.setItem(item, itemDrop);
         }
+        loseGame();
         health--;
     }
     
@@ -270,6 +285,7 @@ public class Game {
         }
         else {
             currentRoom = nextRoom;
+            loseGame();
             stamina --;
         }
         currentRoom = nextRoom;
