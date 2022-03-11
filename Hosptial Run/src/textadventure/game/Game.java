@@ -13,7 +13,7 @@ public class Game {
     private Room nextRoom;
     private int health = 5;
     private int stamina = 5;
-    private int lose = 1; 
+    private boolean lose = false; 
 
     public Game() {
         parser = new Parser();
@@ -85,7 +85,7 @@ public class Game {
     }
 
     public void play() {
-        while(true && lose == 1) {            
+        while(lose == false) {            
             Command command = parser.getCommand();
             try {
                 //cls_var.main(); 
@@ -98,6 +98,7 @@ public class Game {
     }
 
     public void processCommand (Command command) {
+    	if(command.getCommandWord()!=null) {
         String commandWord = command.getCommandWord().toLowerCase();
         switch (commandWord) {
             case "speak":
@@ -120,6 +121,12 @@ public class Game {
                 inspect(command);
                 loseGame();
                 break;
+            case "eat medicine":
+            	health += 7;
+            	break;
+            case "eat food":
+            	stamina += 7;
+            	break;
             case "eat":
                 eat(command);
                 loseGame();
@@ -147,13 +154,8 @@ public class Game {
                 System.out.println ("Commands: Speak, Go, Grab, Drop, Inspect and Eat");
                 System.out.println ("For extra help, type in help followed by the command you are struggling with");
                 break;
-            case "eat medicine":
-            	health += 7;
-            	break;
-            case "eat food":
-            	stamina += 7;
-            	break;
-            	*/
+                */
+        }
         }
      }
 
@@ -200,7 +202,6 @@ public class Game {
         }
         System.out.println (printString);
         health--;
-
     }
 
     public void grab (Command command) {
@@ -286,19 +287,17 @@ public class Game {
         currentRoom = nextRoom;
     }
     
-    /* public void holdItems () {
-    	if (player.getInventoryString().equals("Player Inventory: key"))
-    		grab command = null;
-    }
-    */
-    
     public void loseGame () {
-    	if (health == 0)
-    		lose = 0;
-    	System.out.println ("Sorry you lost the game");
-    	if (stamina == 0)
-    		lose = 0;
-    	System.out.println ("Sorry you lost the game");
-
-    }
+    	if (health == 0) {
+    		lose = true;
+    		System.out.println ("Your health has been deplated!"); 
+    		System.out.println ("Sorry you lost the game");
+    		
+    	}
+    	if (stamina == 0) {
+    		lose = true;
+    		System.out.println ("Your stamina has been deplated!"); 
+    		System.out.println ("Sorry you lost the game");
+    	}
+    } 
 }
